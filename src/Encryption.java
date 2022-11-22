@@ -12,7 +12,7 @@ public class Encryption {
     Cipher cipher;
     Key secretKey;
 
-    public Encryption(String key256bit, String algorithm) {
+    public Encryption(final String key256bit, String algorithm) {
         try {
             this.algorithm = algorithm;
             this.key256bit = key256bit;
@@ -71,13 +71,6 @@ public class Encryption {
         cipher.init(Cipher.DECRYPT_MODE, secretKey);
         byte[] encrypted = cipher.doFinal(Base64.getDecoder().decode(encryptedText));
         return new String(encrypted);
-    }
-
-    public static String generateKey(int keyBitSize, String algorithm) throws NoSuchAlgorithmException {
-        KeyGenerator keyGenerator = KeyGenerator.getInstance(algorithm);
-        keyGenerator.init(keyBitSize, new SecureRandom());
-        SecretKey secretKey = keyGenerator.generateKey();
-        return Base64.getEncoder().encodeToString(secretKey.getEncoded());
     }
 
     public static void printAlgorithmList() {
